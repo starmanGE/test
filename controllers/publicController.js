@@ -165,3 +165,12 @@ exports.renderTeachersPage = async (req, res) => {
         })
     }
 }
+
+/**
+ * 渲染旅行页面
+ */
+exports.renderTravelPage = (req, res) => {
+    res.render('travel', {
+        pageTitle: '旅行探索'
+    })
+}

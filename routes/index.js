@@ -26,4 +26,7 @@ router.get('/about', publicController.renderAboutPage)
 // 联系我们页面
 router.get('/contact', publicController.renderContactPage)
 
+// 旅行页面
+router.get('/travel', publicController.renderTravelPage)
+
 module.exports = router
