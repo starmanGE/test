@@ -1,0 +1,469 @@
+<%- include('partials/header', { pageTitle: pageTitle }) %>
+
+    <style>
+        /* 建议将以下所有CSS代码移动到您的 /public/css/style.css 文件中 */
+
+        /* 动画定义 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 英雄区域 (Hero Section) */
+        .travel-hero {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.9), rgba(80, 201, 195, 0.9)),
+                        url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2940&auto=format&fit=crop') center/cover;
+            color: white;
+            padding: 8rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .travel-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(74, 144, 226, 0.1), rgba(80, 201, 195, 0.1));
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .travel-hero-content {
+            position: relative;
+            z-index: 2;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .travel-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .travel-hero p {
+            font-size: 1.25rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        /* 目的地卡片 */
+        .destination-section {
+            padding: 6rem 0;
+            background: #f8f9fa;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+            height: 100%;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .destination-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .destination-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .destination-info {
+            padding: 2rem;
+        }
+
+        .destination-info h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .destination-info p {
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .destination-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 1rem;
+        }
+
+        .destination-duration {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 旅行类型 */
+        .travel-types {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .travel-type-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-radius: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 100%;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .travel-type-card:nth-child(2) .travel-type-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation-delay: 0.2s;
+        }
+
+        .travel-type-card:nth-child(3) .travel-type-card {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            animation-delay: 0.4s;
+        }
+
+        .travel-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .travel-type-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .travel-type-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* 特色服务 */
+        .features-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 2rem;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+
+        .feature-item:nth-child(2) { animation-delay: 0.2s; }
+        .feature-item:nth-child(3) { animation-delay: 0.4s; }
+        .feature-item:nth-child(4) { animation-delay: 0.6s; }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .feature-item h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* 行动号召 */
+        .cta-section {
+            padding: 6rem 0;
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .btn-travel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            padding: 1rem 3rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-travel:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .travel-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .travel-hero {
+                padding: 6rem 0 4rem;
+            }
+
+            .destination-section,
+            .travel-types,
+            .features-section,
+            .cta-section {
+                padding: 4rem 0;
+            }
+        }
+    </style>
+
+    <!-- 英雄区域 -->
+    <section class="travel-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8 travel-hero-content">
+                    <h1>发现世界之美</h1>
+                    <p class="lead">踏上一场难忘的旅程，探索世界各地的壮丽风光、独特文化和美味佳肴。让我们为您精心规划每一个细节，创造属于您的完美旅行回忆。</p>
+                    <a href="#destinations" class="btn btn-travel btn-lg">
+                        <i class="fas fa-compass me-2"></i>开始探索
+                    </a>
+                </div>
+                <div class="col-lg-4">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2835&auto=format&fit=crop" 
+                         alt="旅行箱" class="img-fluid rounded-3" style="animation: fadeInUp 1.2s ease-out;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 热门目的地 -->
+    <section class="destination-section" id="destinations">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">热门目的地</h2>
+                <p class="lead text-muted">精选全球最受欢迎的旅行目的地，每一个都有独特的魅力等您发现</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6" style="animation-delay: 0.1s;">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?q=80&w=2940&auto=format&fit=crop" alt="巴黎">
+                        <div class="destination-info">
+                            <h4>法国 · 巴黎</h4>
+                            <p>浪漫之都，艺术与时尚的完美融合。漫步在塞纳河畔，感受埃菲尔铁塔的壮丽，品味正宗的法式美食。</p>
+                            <div class="destination-price">¥12,800 起</div>
+                            <div class="destination-duration"><i class="fas fa-clock me-1"></i>7天6夜</div>
+                            <a href="#" class="btn btn-primary">了解详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" style="animation-delay: 0.2s;">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1480796927426-f609979314bd?q=80&w=2940&auto=format&fit=crop" alt="东京">
+                        <div class="destination-info">
+                            <h4>日本 · 东京</h4>
+                            <p>传统与现代的完美结合，体验独特的日本文化。从古老的寺庙到繁华的商业区，感受这座城市的无限魅力。</p>
+                            <div class="destination-price">¥8,600 起</div>
+                            <div class="destination-duration"><i class="fas fa-clock me-1"></i>5天4夜</div>
+                            <a href="#" class="btn btn-primary">了解详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" style="animation-delay: 0.3s;">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2940&auto=format&fit=crop" alt="马尔代夫">
+                        <div class="destination-info">
+                            <h4>马尔代夫</h4>
+                            <p>印度洋上的珍珠，蓝天白云碧海的完美组合。享受私密的水上别墅，体验顶级的海岛度假生活。</p>
+                            <div class="destination-price">¥18,900 起</div>
+                            <div class="destination-duration"><i class="fas fa-clock me-1"></i>6天5夜</div>
+                            <a href="#" class="btn btn-primary">了解详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" style="animation-delay: 0.4s;">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=2940&auto=format&fit=crop" alt="瑞士">
+                        <div class="destination-info">
+                            <h4>瑞士 · 阿尔卑斯山</h4>
+                            <p>雪山湖泊的仙境世界，体验纯净的自然之美。搭乘观光火车穿越壮丽山景，感受欧洲小镇的宁静魅力。</p>
+                            <div class="destination-price">¥15,200 起</div>
+                            <div class="destination-duration"><i class="fas fa-clock me-1"></i>8天7夜</div>
+                            <a href="#" class="btn btn-primary">了解详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" style="animation-delay: 0.5s;">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73469?q=80&w=2940&auto=format&fit=crop" alt="巴厘岛">
+                        <div class="destination-info">
+                            <h4>印度尼西亚 · 巴厘岛</h4>
+                            <p>神秘的千岛之国，热带风情与宗教文化的完美融合。享受私人海滩，体验传统的巴厘岛SPA。</p>
+                            <div class="destination-price">¥7,800 起</div>
+                            <div class="destination-duration"><i class="fas fa-clock me-1"></i>6天5夜</div>
+                            <a href="#" class="btn btn-primary">了解详情</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6" style="animation-delay: 0.6s;">
+                    <div class="destination-card">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2940&auto=format&fit=crop" alt="冰岛">
+                        <div class="destination-info">
+                            <h4>冰岛 · 雷克雅未克</h4>
+                            <p>冰与火的世界，体验极地的神秘魅力。追寻北极光的奇迹，探索冰川与火山的壮丽景观。</p>
+                            <div class="destination-price">¥16,500 起</div>
+                            <div class="destination-duration"><i class="fas fa-clock me-1"></i>9天8夜</div>
+                            <a href="#" class="btn btn-primary">了解详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 旅行类型 -->
+    <section class="travel-types">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">旅行类型</h2>
+                <p class="lead text-muted">不同的旅行方式，满足您的各种需求和偏好</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="travel-type-card">
+                        <div class="travel-type-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>蜜月旅行</h4>
+                        <p>为新婚夫妇精心打造的浪漫之旅，创造一生难忘的甜蜜回忆。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="travel-type-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="travel-type-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>家庭旅行</h4>
+                        <p>适合全家人的温馨旅程，让每个年龄段的家庭成员都能享受其中。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="travel-type-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="travel-type-icon">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <h4>探险旅行</h4>
+                        <p>刺激的户外探险体验，挑战自我，征服自然的壮丽奇观。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色服务 -->
+    <section class="features-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">我们的服务特色</h2>
+                <p class="lead">专业的服务团队，为您提供全方位的旅行保障</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h4>定制路线</h4>
+                        <p>根据您的喜好和需求，为您量身定制专属的旅行路线。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h4>24小时服务</h4>
+                        <p>全天候的客户服务支持，随时为您解决旅行中的任何问题。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>安全保障</h4>
+                        <p>完善的旅行保险和安全保障措施，让您的旅程无后顾之忧。</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>精品体验</h4>
+                        <p>甄选优质的酒店、餐厅和景点，确保您享受到最佳的旅行体验。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 行动号召 -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>开始您的梦想之旅</h2>
+            <p>联系我们的旅行顾问，让我们为您规划一次完美的旅行体验</p>
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+                <a href="/contact" class="btn-travel">
+                    <i class="fas fa-phone me-2"></i>立即咨询
+                </a>
+                <a href="#destinations" class="btn btn-outline-light btn-lg px-4">
+                    <i class="fas fa-map-marked-alt me-2"></i>查看更多目的地
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') %>
