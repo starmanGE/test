@@ -1,0 +1,134 @@
+/* --- 新后台管理界面风格 --- */
+:root {
+    --admin-primary: #3b82f6;
+    --admin-primary-dark: #2563eb;
+    --admin-bg: #f1f5f9;
+    --admin-sidebar-bg: #1e293b;
+    --admin-sidebar-link: #cbd5e1;
+    --admin-sidebar-link-active: #fff;
+    --admin-sidebar-link-hover: #334155;
+    --admin-card-bg: #fff;
+    --admin-border: #e2e8f0;
+    --admin-radius: 1rem;
+    --admin-shadow: 0 4px 24px rgba(30, 41, 59, 0.07);
+}
+
+body.admin-page {
+    background: var(--admin-bg);
+    color: #222;
+    font-family: 'Poppins', 'Nunito', 'Microsoft YaHei', Arial, sans-serif;
+}
+
+/* 侧边栏样式 */
+.admin-sidebar {
+    background: var(--admin-sidebar-bg);
+    min-height: 100vh;
+    padding-top: 2rem;
+    box-shadow: 2px 0 12px rgba(30, 41, 59, 0.04);
+}
+
+.admin-sidebar .sidebar-logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.admin-sidebar .nav-link {
+    color: var(--admin-sidebar-link);
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.08rem;
+    transition: background 0.2s, color 0.2s;
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.admin-sidebar .nav-link.active,
+.admin-sidebar .nav-link:focus {
+    background: var(--admin-primary);
+    color: var(--admin-sidebar-link-active);
+}
+
+.admin-sidebar .nav-link:hover {
+    background: var(--admin-sidebar-link-hover);
+    color: #fff;
+}
+
+.admin-sidebar .nav-link .fas {
+    margin-right: 12px;
+    font-size: 1.1em;
+}
+
+.admin-sidebar .logout {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/* 主内容区样式 */
+.admin-main {
+    padding: 2.5rem 2rem 2rem 2rem;
+}
+
+@media (max-width: 991px) {
+    .admin-sidebar {
+        min-height: auto;
+        padding-top: 1rem;
+    }
+
+    .admin-sidebar .logout {
+        position: relative;
+        bottom: auto;
+        padding: 1rem 0;
+    }
+
+    .admin-main {
+        padding: 1.2rem 0.5rem;
+    }
+}
+
+/* 卡片样式 */
+.admin-card {
+    background: var(--admin-card-bg);
+    border-radius: var(--admin-radius);
+    box-shadow: var(--admin-shadow);
+    border: 1px solid var(--admin-border);
+    padding: 2rem 2rem 1.5rem 2rem;
+    margin-bottom: 2rem;
+}
+
+/* 标题样式 */
+.admin-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--admin-primary-dark);
+    margin-bottom: 1.5rem;
+}
+
+/* 面包屑导航样式 */
+.admin-breadcrumb {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+/* 按钮样式 */
+.admin-btn {
+    border-radius: 2rem;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    background: var(--admin-primary);
+    border: none;
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.admin-btn:hover {
+    background: var(--admin-primary-dark);
+}

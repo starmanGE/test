@@ -1,0 +1,183 @@
+<%- include('../partials/header', { pageTitle: '管理员登录' }) %>
+
+    <style>
+        /* 建议将以下所有CSS代码移动到您的 /public/css/style.css 文件中 */
+        :root {
+            --primary-color: #4f46e5;
+            --light-gray-bg: #f8fafc;
+            --border-color: #e2e8f0;
+        }
+
+        .login-wrapper {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        /* 左侧品牌展示区 */
+        .login-image-panel {
+            flex: 1 1 55%;
+            background-image: url('https://images.unsplash.com/photo-1532187863486-abf9db50b692?q=80&w=2874&auto=format&fit=crop');
+            /* 占位图，请替换为您自己的高清图片 */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 4rem;
+            color: #fff;
+        }
+
+        .login-image-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(79, 70, 229, 0.8) 0%, rgba(79, 70, 229, 0.2) 100%);
+        }
+
+        .login-image-panel .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .login-image-panel h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .login-image-panel p {
+            font-size: 1.1rem;
+            max-width: 450px;
+            opacity: 0.9;
+        }
+
+        /* 右侧登录表单区 */
+        .login-form-panel {
+            flex: 1 1 45%;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-form-container {
+            width: 100%;
+            max-width: 400px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .login-form-container .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+        }
+
+        .login-form-container .input-group-text {
+            background-color: var(--light-gray-bg);
+            border-right: none;
+        }
+
+        .login-form-container .form-control {
+            border-left: none;
+        }
+
+        .login-form-container .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        .login-form-container .btn-primary:hover {
+            background-color: #4338ca;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 991.98px) {
+            .login-image-panel {
+                display: none;
+                /* 在中等屏幕及以下隐藏图片区 */
+            }
+
+            .login-form-panel {
+                flex: 1 1 100%;
+                background-color: var(--light-gray-bg);
+            }
+        }
+    </style>
+
+    <div class="login-wrapper">
+        <div class="login-image-panel">
+            <div class="content">
+                <h1>科学实验管理系统</h1>
+                <p>管理教学资源，追踪学生进度，让科学教育更高效、更智能。</p>
+            </div>
+        </div>
+
+        <div class="login-form-panel">
+            <div class="login-form-container">
+                <div class="text-center mb-5">
+                    <i class="fas fa-flask fa-3x text-primary"></i>
+                    <h2 class="mt-3">管理员登录</h2>
+                    <p class="text-muted">欢迎回来，请登录您的账户</p>
+                </div>
+
+                <% if (typeof errorMessage !=='undefined' && errorMessage) { %>
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <div>
+                            <%= errorMessage %>
+                        </div>
+                    </div>
+                    <% } %>
+
+                        <form action="/admin/login" method="POST">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">用户名</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                    <input type="text" class="form-control" id="username" name="username" required
+                                        placeholder="请输入用户名">
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label">密码</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    <input type="password" class="form-control" id="password" name="password" required
+                                        placeholder="请输入密码">
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-sign-in-alt me-2"></i>登 录
+                                </button>
+                            </div>
+                        </form>
+                        <div class="text-center mt-4">
+                            <a href="/" class="text-muted text-decoration-none"><small><i
+                                        class="fas fa-arrow-left me-1"></i>返回网站首页</small></a>
+                        </div>
+            </div>
+        </div>
+    </div>
+
+    <%# login页面通常不需要页脚，所以这里我们不引入footer %>

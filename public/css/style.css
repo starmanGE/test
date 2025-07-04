@@ -1,0 +1,225 @@
+/* Basic Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f8f9fa;
+    color: #333;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+/* Navigation Styles */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #007bff !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff !important;
+    transform: translateY(-1px);
+    transition: all 0.3s ease;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 25px;
+    padding: 10px 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-2px);
+}
+
+/* Footer Styles */
+footer {
+    margin-top: auto;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Hero Section */
+.display-5 {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.lead {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* Table Styles */
+.table {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    font-weight: 600;
+}
+
+/* Modal Styles */
+.modal-content {
+    border: none;
+    border-radius: 15px;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #f8f9fa;
+        /* Or your navbar's background color */
+        padding: 1rem;
+        border-top: 1px solid #dee2e6;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1020;
+    }
+
+    .navbar-nav {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0 15px;
+    }
+
+    .display-5 {
+        font-size: 2rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+    }
+}
+
+/* Admin Settings Page Styles */
+/* 主设置面板 */
+.settings-panel {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* 标签页导航美化 */
+.settings-tabs .nav-link {
+    color: #6c757d;
+    font-weight: 500;
+    border-width: 0;
+    border-bottom: 3px solid transparent;
+    padding: 1rem 1.25rem;
+}
+
+.settings-tabs .nav-link.active {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    background-color: transparent;
+}
+
+.tab-content {
+    padding: 2rem;
+}
+
+/* 输入框组图标 */
+.input-group-text {
+    background-color: #e9ecef;
+    border-right: none;
+}
+
+.input-group .form-control {
+    border-left: none;
+}
+
+/* 悬浮保存按钮栏 */
+.settings-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 1rem 2rem;
+    border-top: 1px solid #dee2e6;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

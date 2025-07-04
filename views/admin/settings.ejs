@@ -1,0 +1,242 @@
+<%- include('../partials/header', { pageTitle: pageTitle }) %>
+
+    <div class="container-fluid">
+        <div class="row">
+            <%- include('../partials/sidebar', { activePage: 'settings' }) %>
+
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2"><i class="fas fa-cog me-2"></i>
+                            <%= pageTitle %>
+                        </h1>
+                    </div>
+
+                    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1050"></div>
+
+                    <form action="/admin/settings" method="POST" id="settingsForm">
+                        <div class="settings-panel">
+                            <ul class="nav nav-tabs settings-tabs px-3" id="settingsTab" role="tablist">
+                                <li class="nav-item" role="presentation"><button class="nav-link active"
+                                        data-bs-toggle="tab" data-bs-target="#basic-info" type="button"><i
+                                            class="fas fa-info-circle me-2"></i>基本信息</button></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#contact-info" type="button"><i
+                                            class="fas fa-address-book me-2"></i>联系信息</button></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#social-media" type="button"><i
+                                            class="fas fa-share-alt me-2"></i>社交媒体</button></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#feature-settings" type="button"><i
+                                            class="fas fa-toggle-on me-2"></i>功能设置</button></li>
+                                <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab"
+                                        data-bs-target="#homepage-display" type="button"><i
+                                            class="fas fa-home me-2"></i>首页展示</button></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="basic-info" role="tabpanel">
+                                    <div class="mb-3"><label for="site_name" class="form-label">网站名称</label><input
+                                            type="text" class="form-control" id="site_name" name="site_name"
+                                            value="<%= settings.site_name || '科学实验辅导班' %>" required></div>
+                                    <div class="mb-3"><label for="site_description"
+                                            class="form-label">网站描述</label><textarea class="form-control"
+                                            id="site_description" name="site_description" rows="3"
+                                            placeholder="简短描述网站的主要功能和特色..."><%= settings.site_description || '' %></textarea>
+                                    </div>
+                                    <div class="mb-3"><label for="site_keywords" class="form-label">关键词</label><input
+                                            type="text" class="form-control" id="site_keywords" name="site_keywords"
+                                            value="<%= settings.site_keywords || '' %>" placeholder="SEO关键词，用逗号分隔">
+                                        <div class="form-text">用于搜索引擎优化的关键词</div>
+                                    </div>
+                                    <div class="mb-3"><label for="admin_email" class="form-label">管理员邮箱</label><input
+                                            type="email" class="form-control" id="admin_email" name="admin_email"
+                                            value="<%= settings.admin_email || '' %>" placeholder="admin@example.com">
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="contact-info" role="tabpanel">
+                                    <div class="mb-3"><label for="contact_phone" class="form-label">联系电话</label><input
+                                            type="tel" class="form-control" id="contact_phone" name="contact_phone"
+                                            value="<%= settings.contact_phone || '' %>" placeholder="400-123-4567">
+                                    </div>
+                                    <div class="mb-3"><label for="contact_email" class="form-label">联系邮箱</label><input
+                                            type="email" class="form-control" id="contact_email" name="contact_email"
+                                            value="<%= settings.contact_email || '' %>" placeholder="info@example.com">
+                                    </div>
+                                    <div class="mb-3"><label for="contact_address"
+                                            class="form-label">联系地址</label><textarea class="form-control"
+                                            id="contact_address" name="contact_address" rows="3"
+                                            placeholder="详细的联系地址..."><%= settings.contact_address || '' %></textarea>
+                                    </div>
+                                    <div class="mb-3"><label for="business_hours" class="form-label">营业时间</label><input
+                                            type="text" class="form-control" id="business_hours" name="business_hours"
+                                            value="<%= settings.business_hours || '' %>" placeholder="周一至周日 9:00-18:00">
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="social-media" role="tabpanel">
+                                    <div class="input-group mb-3"><span class="input-group-text"><i
+                                                class="fab fa-weixin"></i></span><input type="url" class="form-control"
+                                            name="wechat_qr" value="<%= settings.wechat_qr || '' %>"
+                                            placeholder="微信二维码链接"></div>
+                                    <div class="input-group mb-3"><span class="input-group-text"><i
+                                                class="fab fa-weibo"></i></span><input type="url" class="form-control"
+                                            name="weibo_url" value="<%= settings.weibo_url || '' %>" placeholder="微博链接">
+                                    </div>
+                                    <div class="input-group mb-3"><span class="input-group-text"><i
+                                                class="fab fa-qq"></i></span><input type="text" class="form-control"
+                                            name="qq_group" value="<%= settings.qq_group || '' %>" placeholder="QQ群号">
+                                    </div>
+                                    <div class="input-group mb-3"><span class="input-group-text"><i
+                                                class="fab fa-tiktok"></i></span><input type="url" class="form-control"
+                                            name="douyin_url" value="<%= settings.douyin_url || '' %>"
+                                            placeholder="抖音链接"></div>
+                                </div>
+
+                                <div class="tab-pane fade" id="feature-settings" role="tabpanel">
+                                    <div class="form-check form-switch mb-3"><input class="form-check-input"
+                                            type="checkbox" id="enable_enrollment" name="enable_enrollment" value="1"
+                                            <%=(settings.enable_enrollment==='1' || typeof
+                                            settings.enable_enrollment==='undefined' ) ? 'checked' : '' %>><label
+                                            class="form-check-label" for="enable_enrollment">启用在线报名功能</label></div>
+                                    <div class="form-check form-switch mb-3"><input class="form-check-input"
+                                            type="checkbox" id="show_teacher_contact" name="show_teacher_contact"
+                                            value="1" <%=settings.show_teacher_contact==='1' ? 'checked' : '' %>><label
+                                            class="form-check-label" for="show_teacher_contact">显示教师联系方式</label></div>
+                                    <div class="form-check form-switch mb-3"><input class="form-check-input"
+                                            type="checkbox" id="maintenance_mode" name="maintenance_mode" value="1"
+                                            <%=settings.maintenance_mode==='1' ? 'checked' : '' %>><label
+                                            class="form-check-label" for="maintenance_mode">网站维护模式</label>
+                                        <div class="form-text">启用后，前台网站将显示统一的维护页面</div>
+                                    </div>
+                                    <div class="mb-3 mt-4"><label for="max_enrollment_per_course"
+                                            class="form-label">每课程默认最大报名数</label><input type="number"
+                                            class="form-control" id="max_enrollment_per_course"
+                                            name="max_enrollment_per_course"
+                                            value="<%= settings.max_enrollment_per_course || '20' %>" min="1" max="100">
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="homepage-display" role="tabpanel">
+                                    <div class="mb-3"><label for="hero_title" class="form-label">首页大标题</label><input
+                                            type="text" class="form-control" id="hero_title" name="hero_title"
+                                            value="<%= settings.hero_title || '探索科学的奥秘' %>"></div>
+                                    <div class="mb-3"><label for="hero_subtitle" class="form-label">首页副标题</label><input
+                                            type="text" class="form-control" id="hero_subtitle" name="hero_subtitle"
+                                            value="<%= settings.hero_subtitle || '专业的小学科学实验辅导' %>"></div>
+                                    <div class="mb-3"><label for="home_video_url"
+                                            class="form-label">首页视频链接</label><input type="url" class="form-control"
+                                            id="home_video_url" name="home_video_url"
+                                            value="<%= settings.home_video_url || '' %>"
+                                            placeholder="https://...mp4 或B站嵌入链接">
+                                        <div class="form-text">支持mp4直链或主流视频平台嵌入链接</div>
+                                    </div>
+                                    <div class="mb-3"><label for="mapEmbedUrl" class="form-label">地图嵌入链接</label><input
+                                            type="url" class="form-control" id="mapEmbedUrl" name="mapEmbedUrl"
+                                            value="<%= settings.mapEmbedUrl || '' %>" placeholder="高德/百度地图的iframe分享链接">
+                                        <div class="form-text">用于“联系我们”页面的地图展示</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="settings-footer mt-4 text-end">
+                            <button type="button" class="btn btn-secondary btn-lg" onclick="resetForm()"><i
+                                    class="fas fa-undo me-2"></i>重置</button>
+                            <button type="submit" class="btn btn-primary btn-lg"><i
+                                    class="fas fa-save me-2"></i>保存所有设置</button>
+                        </div>
+                    </form>
+                </main>
+        </div>
+    </div>
+
+    <script>
+        // 定义一个显示Toast通知的函数
+        function showToast(message, type = 'success') {
+            const toastContainer = document.querySelector('.toast-container')
+            const toastId = 'toast-' + Date.now()
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-times-circle'
+            const bg = type === 'success' ? 'bg-success' : 'bg-danger'
+
+            const toastHTML = `
+            <div id="${toastId}" class="toast align-items-center text-white ${bg} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fas ${icon} me-2"></i> ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        `
+            toastContainer.insertAdjacentHTML('beforeend', toastHTML)
+            const toastEl = document.getElementById(toastId)
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 })
+            toast.show()
+            toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove())
+        }
+
+        // 重置表单
+        function resetForm() {
+            if (confirm('确定要重置所有设置吗？未保存的更改将丢失。')) {
+                document.getElementById('settingsForm').reset()
+                showToast('表单已重置', 'info')
+            }
+        }
+
+        // 表单提交处理
+        document.getElementById('settingsForm').addEventListener('submit', function (e) {
+            e.preventDefault()
+            const siteName = document.getElementById('site_name').value.trim()
+            if (!siteName) {
+                alert('网站名称不能为空')
+                document.getElementById('site_name').focus()
+                return false
+            }
+
+            const submitBtn = this.querySelector('button[type="submit"]')
+            const originalBtnText = submitBtn.innerHTML
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>保存中...'
+            submitBtn.disabled = true
+
+            const formData = new FormData(this)
+            // 手动处理未选中的 switch, 确保它们有值 '0'
+            this.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                if (!checkbox.checked) {
+                    formData.set(checkbox.name, '0')
+                }
+            })
+
+            fetch(this.action, {
+                method: 'POST',
+                body: new URLSearchParams(formData)
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showToast('设置已成功保存！')
+                    } else {
+                        showToast(`保存失败: ${data.message || '未知错误'}`, 'danger')
+                    }
+                }).catch(error => {
+                    console.error('Error:', error)
+                    showToast('保存时发生网络错误', 'danger')
+                }).finally(() => {
+                    submitBtn.innerHTML = originalBtnText
+                    submitBtn.disabled = false
+                })
+        })
+
+        // 页面加载时检查是否有成功消息（来自传统POST后重定向）
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search)
+            if (urlParams.get('success') === 'true') {
+                showToast('设置已成功保存！')
+                // 清理URL参数，防止刷新时再次提示
+                const newUrl = window.location.pathname
+                window.history.replaceState({}, document.title, newUrl)
+            }
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <%- include('../partials/footer') %>

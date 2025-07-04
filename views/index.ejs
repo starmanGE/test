@@ -1,0 +1,192 @@
+<%- include('partials/header', { pageTitle: pageTitle }) %>
+
+    <style>
+        /* 建议将以下所有CSS代码移动到您的 /public/css/style.css 文件中 */
+
+        /* 动画定义 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 英雄区域 (Hero Section) */
+        .hero-section {
+            background-color: #f8f9fa;
+            position: relative;
+            overflow: hidden;
+            /* 隐藏超出部分的装饰性圆形 */
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -15%;
+            width: 60vw;
+            height: 60vw;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(0, 123, 255, 0));
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-weight: 800;
+            background: linear-gradient(90deg, #0d6efd, #6f42c1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .hero-lead {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-buttons {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-media {
+            animation: fadeInUp 1s ease-out;
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15) !important;
+            border-radius: 1rem !important;
+        }
+
+        .btn-glow {
+            transition: all 0.3s ease;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        /* 特色区域 (Features Section) */
+        .features-section {
+            padding: 5rem 0;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: #fff;
+            border-radius: 1rem;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease-in-out;
+            height: 100%;
+            animation: fadeInUp 0.8s ease-out backwards;
+            /* backwards to apply start state */
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        .feature-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            font-size: 2.5rem;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon-physics {
+            background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+        }
+
+        .icon-teacher {
+            background: linear-gradient(135deg, #6f42c1, #d63384);
+        }
+
+        .icon-class-size {
+            background: linear-gradient(135deg, #198754, #20c997);
+        }
+    </style>
+
+    <div class="hero-section">
+        <div class="container col-xxl-8 px-4 py-5">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-md-5 hero-content">
+                <div class="col-10 col-sm-8 col-lg-6">
+                    <div class="hero-media">
+                        <% if (homeVideoUrl) { %>
+                            <% if (homeVideoUrl.endsWith('.mp4')) { %>
+                                <video class="w-100" controls poster="/uploads/default.jpg"
+                                    style="border-radius: 1rem;">
+                                    <source src="<%= homeVideoUrl %>" type="video/mp4">
+                                    您的浏览器不支持 video 标签。
+                                </video>
+                                <% } else { %>
+                                    <div class="ratio ratio-16x9"><iframe src="<%= homeVideoUrl %>" allowfullscreen
+                                            allow="autoplay; encrypted-media"></iframe></div>
+                                    <% } %>
+                                        <% } else { %>
+                                            <img src="https://images.unsplash.com/photo-1576014131795-d44773014a26?q=80&w=2940&auto=format&fit=crop"
+                                                class="d-block mx-lg-auto img-fluid" alt="科学实验" width="700" height="500"
+                                                loading="lazy">
+                                            <% } %>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="display-4 hero-title lh-1 mb-4">开启孩子的科学探索之旅</h1>
+                    <p class="lead fs-5 text-muted hero-lead">
+                        我们相信，每个孩子心中都有一位小小科学家。在这里，我们用安全、有趣的动手实验，将课本知识变为亲身体验，点燃孩子对科学的好奇心与热爱。</p>
+                    <div class="d-grid gap-3 d-md-flex justify-content-md-start hero-buttons">
+                        <a href="/courses" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold btn-glow">
+                            <i class="fas fa-rocket me-2"></i>探索所有课程
+                        </a>
+                        <a href="#features" class="btn btn-outline-secondary btn-lg px-4">了解我们的特色</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-4 features-section" id="features">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">为什么选择我们？</h2>
+            <p class="lead text-muted">我们用心打造每一节课，只为给孩子最好的科学启蒙</p>
+        </div>
+        <div class="row gx-lg-5 gy-4">
+            <div class="col-lg-4" style="animation-delay: 0.1s;">
+                <div class="feature-card">
+                    <div class="feature-icon icon-physics"><i class="fas fa-flask-vial"></i></div>
+                    <h3 class="fs-4 fw-bold mb-3">100%动手实践</h3>
+                    <p class="text-muted">告别枯燥理论！我们相信“做中学”的力量，每一节课都围绕着孩子们可以亲手操作的核心实验展开。</p>
+                </div>
+            </div>
+            <div class="col-lg-4" style="animation-delay: 0.2s;">
+                <div class="feature-card">
+                    <div class="feature-icon icon-teacher"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3 class="fs-4 fw-bold mb-3">专业且风趣的师资</h3>
+                    <p class="text-muted">我们的老师不仅拥有扎实的科学背景，更懂得如何用孩子的语言沟通，善于引导和启发，是孩子们的良师益友。</p>
+                </div>
+            </div>
+            <div class="col-lg-4" style="animation-delay: 0.3s;">
+                <div class="feature-card">
+                    <div class="feature-icon icon-class-size"><i class="fas fa-users"></i></div>
+                    <h3 class="fs-4 fw-bold mb-3">精品小班教学</h3>
+                    <p class="text-muted">我们坚持不超过8人的小班授课，确保每个孩子都能得到老师的充分关注，并能和同伴进行深度协作与交流。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>

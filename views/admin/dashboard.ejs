@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= pageTitle %> - 科学实验辅导班管理系统
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* --- 全局美化 --- */
+        :root {
+            --bs-primary-rgb: 79, 70, 229;
+            /* 定义新的主色调 (靛蓝) */
+            --bs-primary: rgb(var(--bs-primary-rgb));
+            --sidebar-bg: #1e293b;
+            /* 深色侧边栏背景 (石板色) */
+            --sidebar-link-color: #cbd5e1;
+            --sidebar-link-hover-bg: #334155;
+            --sidebar-link-active-color: #ffffff;
+            --body-bg: #f8fafc;
+            /* 更柔和的页面背景色 */
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--body-bg);
+            transition: background-color 0.3s;
+        }
+
+        /* --- 导航栏美化 --- */
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- 侧边栏美化 --- */
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, .05);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar .nav-link {
+            color: var(--sidebar-link-color);
+            padding: 0.8rem 1.25rem;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--sidebar-link-hover-bg);
+            color: white;
+            border-left-color: var(--bs-primary);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--bs-primary);
+            color: white;
+            border-left-color: #a5b4fc;
+            /* 高亮边缘 */
+        }
+
+        .sidebar .nav-link .fas {
+            width: 20px;
+            /* 图标对齐 */
+        }
+
+        /* --- 主要内容区域美化 --- */
+        main {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            border: none;
+            border-radius: 0.75rem;
+            /* 更圆润的卡片 */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        /* --- 统计卡片美化 --- */
+        .stat-card .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* --- 骨架屏加载效果 --- */
+        .skeleton {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            background-color: #e2e8f0;
+            border-radius: 0.25rem;
+        }
+
+        .skeleton-text {
+            height: 1.25rem;
+            width: 75%;
+        }
+
+        .skeleton-text-sm {
+            height: 0.875rem;
+            width: 45%;
+        }
+
+        .skeleton-list-item {
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: .5;
+            }
+        }
+
+        /* --- 管理员主界面特有样式 --- */
+        .admin-main {
+            padding: 2rem 1.5rem;
+        }
+
+        .admin-breadcrumb {
+            background: none;
+            padding: 0;
+            margin: 0 0 1.5rem 0;
+            font-size: 0.875rem;
+        }
+
+        .admin-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .admin-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .admin-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-card .text-muted {
+            margin: 0.5rem 0 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../partials/header', { pageTitle: pageTitle, isAdmin: true }) %>
+        <div class="container-fluid">
+            <div class="row">
+                <%- include('../partials/sidebar', { activePage: 'dashboard' }) %>
+                    <main class="admin-main col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                        <nav class="admin-breadcrumb mb-3" aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/admin/dashboard">后台首页</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">仪表盘</li>
+                            </ol>
+                        </nav>
+                        <div class="admin-title mb-4">欢迎回来，<%= user ? user.username : '管理员' %>！</div>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="admin-card">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="me-3"><i class="fas fa-book fa-2x text-primary"></i></div>
+                                        <div>
+                                            <div class="fs-4 fw-bold">
+                                                <%= typeof coursesCount !=='undefined' ? coursesCount : '--' %>
+                                            </div>
+                                            <div class="text-muted">课程总数</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="admin-card">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="me-3"><i class="fas fa-user-check fa-2x text-success"></i></div>
+                                        <div>
+                                            <div class="fs-4 fw-bold">
+                                                <%= typeof enrollmentsCount !=='undefined' ? enrollmentsCount : '--' %>
+                                            </div>
+                                            <div class="text-muted">报名总数</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="admin-card">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="me-3"><i class="fas fa-chalkboard-teacher fa-2x text-warning"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fs-4 fw-bold">
+                                                <%= typeof teachersCount !=='undefined' ? teachersCount : '--' %>
+                                            </div>
+                                            <div class="text-muted">教师总数</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin-card mt-4">
+                            <div class="fw-bold mb-2"><i class="fas fa-bullhorn me-2"></i>公告</div>
+                            <div class="text-muted">欢迎使用科学实验辅导班后台管理系统！如有问题请联系技术支持。</div>
+                        </div>
+                    </main>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            let enrollmentChartInstance = null
+
+            // 页面加载时获取统计数据
+            window.addEventListener('load', loadDashboardStats)
+
+            // 加载仪表盘统计数据
+            async function loadDashboardStats() {
+                try {
+                    // 模拟网络延迟，以便观察加载效果
+                    await new Promise(resolve => setTimeout(resolve, 800))
+
+                    const response = await fetch('/admin/api/dashboard-stats')
+                    if (!response.ok) throw new Error('网络响应错误')
+                    const data = await response.json()
+
+                    // 更新统计数字
+                    document.getElementById('courseCount').textContent = data.courses
+                    document.getElementById('enrollmentCount').textContent = data.enrollments
+                    document.getElementById('pendingCount').textContent = data.pendingEnrollments
+                    document.getElementById('teacherCount').textContent = data.teachers
+
+                    // 更新最近报名列表
+                    updateRecentEnrollments(data.recentEnrollments)
+
+                    // 创建或更新图表
+                    createOrUpdateChart(data.enrollmentTrend)
+
+                } catch (error) {
+                    console.error('加载统计数据失败:', error);
+                    ['courseCount', 'enrollmentCount', 'pendingCount', 'teacherCount'].forEach(id => {
+                        document.getElementById(id).innerHTML = '<i class="fas fa-exclamation-triangle text-danger" title="加载失败"></i>'
+                    })
+                }
+            }
+
+            // 更新最近报名列表
+            function updateRecentEnrollments(enrollments) {
+                const container = document.getElementById('recentEnrollments')
+                if (!container) return
+
+                if (!enrollments || enrollments.length === 0) {
+                    container.innerHTML = '<div class="text-muted text-center p-5">暂无最近报名记录</div>'
+                    return
+                }
+
+                const html = enrollments.map(item => `
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                    <div>
+                        <div class="fw-bold">${item.student_name}</div>
+                        <small class="text-muted">${item.course_title}</small>
+                    </div>
+                    <span class="badge bg-light text-dark">${new Date(item.created_at).toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })}</span>
+                </div>
+            `).join('')
+                container.innerHTML = html
+            }
+
+            // 创建或更新图表
+            function createOrUpdateChart(trendData) {
+                const ctx = document.getElementById('enrollmentChart')
+                if (!ctx) return
+
+                // 假设 trendData 是一个对象数组 [{date: '2023-06-20', count: 5}, ...]
+                // 为演示，我们生成假数据
+                const labels = Array.from({ length: 7 }, (_, i) => {
+                    const d = new Date()
+                    d.setDate(d.getDate() - i)
+                    return d.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })
+                }).reverse()
+
+                const data = trendData || Array.from({ length: 7 }, () => Math.floor(Math.random() * 10))
+
+                if (enrollmentChartInstance) {
+                    enrollmentChartInstance.destroy()
+                }
+
+                enrollmentChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '报名数',
+                            data: data,
+                            backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                            borderColor: 'rgba(79, 70, 229, 1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: '#e2e8f0'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                })
+            }
+        </script>
+</body>
+
+</html>

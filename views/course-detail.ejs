@@ -1,0 +1,193 @@
+<%- include('partials/header', { pageTitle: course ? course.title : '课程详情' }) %>
+
+    <!-- 课程详情页面 -->
+    <main class="bg-light py-5">
+        <div class="container">
+            <% if(course) { %>
+                <!-- 面包屑导航 -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">首页</a></li>
+                        <li class="breadcrumb-item"><a href="/courses">课程中心</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <%= course.title %>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="row">
+                    <!-- 课程主要信息 -->
+                    <div class="col-lg-8 mb-4">
+                        <div class="card shadow-sm border-0">
+                            <img src="<%= course.cover_image_url || '/images/default-course.jpg' %>"
+                                class="card-img-top" alt="<%= course.title %>"
+                                style="height: 300px; object-fit: cover;">
+                            <div class="card-body p-4">
+                                <h1 class="card-title h2 text-primary mb-3">
+                                    <%= course.title %>
+                                </h1>
+
+                                <!-- 课程标签 -->
+                                <div class="mb-3">
+                                    <span class="badge bg-primary me-2">
+                                        <%= course.category %>
+                                    </span>
+                                    <span class="badge bg-success me-2">
+                                        <%= course.age_range %>
+                                    </span>
+                                    <span class="badge bg-info">
+                                        <%= course.duration %>
+                                    </span>
+                                </div>
+
+                                <!-- 课程描述 -->
+                                <div class="mb-4">
+                                    <h5 class="text-secondary">课程简介</h5>
+                                    <p class="card-text lead">
+                                        <%= course.description %>
+                                    </p>
+                                </div>
+
+                                <!-- 课程内容 -->
+                                <% if(course.content) { %>
+                                    <div class="mb-4">
+                                        <h5 class="text-secondary">课程内容</h5>
+                                        <div class="content-text">
+                                            <%- course.content.replace(/\n/g, '<br>' ) %>
+                                        </div>
+                                    </div>
+                                    <% } %>
+
+                                        <!-- 课程特色 -->
+                                        <div class="mb-4">
+                                            <h5 class="text-secondary">课程特色</h5>
+                                            <div class="row g-3">
+                                                <div class="col-md-6">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-users text-primary me-2"></i>
+                                                        <span>小班教学，个性化关注</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-flask text-primary me-2"></i>
+                                                        <span>动手实验，理论结合实践</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-graduation-cap text-primary me-2"></i>
+                                                        <span>专业师资，科学指导</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="d-flex align-items-center">
+                                                        <i class="fas fa-certificate text-primary me-2"></i>
+                                                        <span>完成证书，成果展示</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 课程信息卡片 -->
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm border-0 sticky-top" style="top: 20px;">
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">
+                                    <i class="fas fa-info-circle me-2"></i>课程信息
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="course-info-item mb-3">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">课程费用</span>
+                                        <span class="h4 text-success mb-0">¥<%= course.price %></span>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="course-info-item mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">适合年龄</span>
+                                        <span class="fw-bold">
+                                            <%= course.age_range %>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="course-info-item mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">课程时长</span>
+                                        <span class="fw-bold">
+                                            <%= course.duration %>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="course-info-item mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">班级人数</span>
+                                        <span class="fw-bold">
+                                            <%= course.class_size %>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="course-info-item mb-4">
+                                    <div class="d-flex justify-content-between">
+                                        <span class="text-muted">开班状态</span>
+                                        <span class="badge bg-success">正在招生</span>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <!-- 报名按钮 -->
+                                <div class="d-grid gap-2">
+                                    <a href="/enroll/<%= course.id %>" class="btn btn-success btn-lg">
+                                        <i class="fas fa-user-plus me-2"></i>立即报名
+                                    </a>
+                                    <a href="/contact" class="btn btn-outline-primary">
+                                        <i class="fas fa-phone me-2"></i>咨询客服
+                                    </a>
+                                </div>
+
+                                <!-- 联系信息 -->
+                                <div class="mt-4 p-3 bg-light rounded">
+                                    <h6 class="text-primary mb-2">
+                                        <i class="fas fa-headset me-2"></i>咨询热线
+                                    </h6>
+                                    <p class="mb-1 fw-bold">400-123-4567</p>
+                                    <small class="text-muted">工作时间：9:00-18:00</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } else { %>
+                    <!-- 课程未找到 -->
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 text-center">
+                            <div class="card shadow-sm border-0">
+                                <div class="card-body p-5">
+                                    <i class="fas fa-exclamation-triangle text-warning mb-3"
+                                        style="font-size: 3rem;"></i>
+                                    <h3 class="text-muted mb-3">课程不存在</h3>
+                                    <p class="text-muted mb-4">抱歉，您访问的课程页面不存在或已被删除。</p>
+                                    <a href="/courses" class="btn btn-primary">
+                                        <i class="fas fa-arrow-left me-2"></i>返回课程列表
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+        </div>
+    </main>
+    </div>
+
+    <%- include('partials/footer') %>

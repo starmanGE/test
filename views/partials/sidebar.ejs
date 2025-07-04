@@ -1,0 +1,33 @@
+<!-- 新后台侧边栏 partial -->
+<aside class="admin-sidebar d-flex flex-column position-relative col-md-3 col-lg-2 p-0">
+    <div class="sidebar-logo mb-4">
+        <i class="fas fa-flask-vial me-2"></i>科学后台
+    </div>
+    <nav class="flex-grow-1">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link <%= activePage === 'dashboard' ? 'active' : '' %>" href="/admin/dashboard"><i
+                        class="fas fa-tachometer-alt"></i>仪表盘</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <%= activePage === 'courses' ? 'active' : '' %>" href="/admin/courses"><i
+                        class="fas fa-book"></i>课程管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <%= activePage === 'enrollments' ? 'active' : '' %>" href="/admin/enrollments"><i
+                        class="fas fa-user-check"></i>报名管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <%= activePage === 'teachers' ? 'active' : '' %>" href="/admin/teachers"><i
+                        class="fas fa-chalkboard-teacher"></i>教师管理</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <%= activePage === 'settings' ? 'active' : '' %>" href="/admin/settings"><i
+                        class="fas fa-cog"></i>网站设置</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="logout">
+        <a href="/admin/logout" class="btn admin-btn"><i class="fas fa-sign-out-alt me-1"></i>退出登录</a>
+    </div>
+</aside>

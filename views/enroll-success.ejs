@@ -1,0 +1,201 @@
+<%- include('partials/header', { pageTitle: "报名成功" }) %>
+
+    <style>
+        /* 建议将以下所有CSS代码移动到您的 /public/css/style.css 文件中 */
+        .page-success {
+            background: radial-gradient(circle, rgba(220, 245, 225, 0.4), #f8f9fa 70%);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .confirmation-card {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-top: 4px solid #198754;
+            /* Bootstrap Success Color */
+            border-radius: .75rem;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.075);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* 成功图标的脉冲动画 */
+        .success-icon-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(25, 135, 84, 0.1);
+            border-radius: 50%;
+            animation: popIn 0.6s ease-out both;
+        }
+
+        .success-icon-wrapper .main-icon {
+            font-size: 4.5rem;
+            line-height: 1;
+        }
+
+        .success-icon-wrapper::before,
+        .success-icon-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background-color: #198754;
+            opacity: 0;
+            animation: pulse 2s infinite cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .success-icon-wrapper::after {
+            animation-delay: 1s;
+            /* 错开动画，形成持续脉冲效果 */
+        }
+
+        /* 后续步骤列表美化 */
+        .steps-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .steps-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .steps-list i {
+            margin-top: 4px;
+            /* 图标与文字对齐微调 */
+        }
+
+        /* 动画Keyframes */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            80% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 为元素应用动画延迟 */
+        .success-title {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .action-buttons {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+    </style>
+
+    <main class="min-vh-100 d-flex align-items-center page-success">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7 col-md-9">
+                    <div class="text-center">
+
+                        <div class="success-icon-wrapper">
+                            <i class="fas fa-check text-success main-icon"></i>
+                        </div>
+
+                        <h1 class="display-4 fw-bold text-success mb-3 success-title">报名成功！</h1>
+
+                        <div class="card confirmation-card mb-4">
+                            <div class="card-body p-4 p-md-5">
+                                <p class="lead text-muted mb-4">
+                                    非常感谢您的信任！我们已收到您的课程报名申请。
+                                    <% if (typeof message !=='undefined' ) { %>
+                                        <%= message %>
+                                            <% } %>
+                                </p>
+
+                                <div class="alert alert-light border-start border-4 border-info" role="alert">
+                                    <h6 class="alert-heading fw-bold"><i class="fas fa-info-circle me-2"></i>接下来会发生什么？
+                                    </h6>
+                                    <hr>
+                                    <ul class="mb-0 text-start steps-list">
+                                        <li><i
+                                                class="fas fa-check-circle text-success fa-fw me-2"></i>我们的课程顾问将在**24小时内**与您电话联系。
+                                        </li>
+                                        <li><i class="fas fa-check-circle text-success fa-fw me-2"></i>与您确认课程时间、地点等具体安排。
+                                        </li>
+                                        <li><i class="fas fa-check-circle text-success fa-fw me-2"></i>协助您完成课程费用的支付流程。
+                                        </li>
+                                        <li><i
+                                                class="fas fa-check-circle text-success fa-fw me-2"></i>向您发送正式的开课通知和准备材料清单。
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="mt-4 pt-4 border-top">
+                                    <p class="text-muted small mb-2">如有任何紧急问题，您可以主动联系我们：</p>
+                                    <div class="d-flex justify-content-center gap-4">
+                                        <a href="tel:400-123-4567" class="text-decoration-none text-dark"><i
+                                                class="fas fa-phone text-primary me-2"></i>400-123-4567</a>
+                                        <a href="mailto:info@science-center.com"
+                                            class="text-decoration-none text-dark"><i
+                                                class="fas fa-envelope text-primary me-2"></i>info@science-center.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center action-buttons">
+                            <a href="/courses" class="btn btn-primary btn-lg px-4"><i
+                                    class="fas fa-book-open me-2"></i>浏览更多课程</a>
+                            <a href="/" class="btn btn-outline-secondary btn-lg px-4"><i
+                                    class="fas fa-home me-2"></i>返回首页</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('partials/footer') %>

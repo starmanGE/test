@@ -1,0 +1,238 @@
+<%- include('partials/header', { pageTitle: pageTitle }) %>
+
+    <style>
+        /* 建议将以下所有CSS代码移动到您的 /public/css/style.css 文件中 */
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #10b981;
+            /* A nice teal/green for accents */
+            --light-gray-bg: #f8fafc;
+            --text-color: #334155;
+            --subtle-text-color: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            /* Subtle background pattern */
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23f1f5f9' fill-opacity='0.4'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* 顶部英雄区 */
+        .contact-header {
+            background-color: var(--light-gray-bg);
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .contact-header h1 {
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .contact-header p {
+            font-size: 1.25rem;
+            color: var(--subtle-text-color);
+            max-width: 650px;
+            margin: 1rem auto 0;
+        }
+
+        /* 信息卡片 */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-item {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            display: flex;
+            align-items: flex-start;
+            /* 改为 flex-start 以对齐顶部 */
+            gap: 1.5rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(100, 116, 139, 0.1);
+        }
+
+        .contact-item .icon {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.25rem;
+        }
+
+        .contact-item h5 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p,
+        .contact-item a {
+            margin-bottom: 0;
+            color: var(--subtle-text-color);
+            line-height: 1.6;
+            text-decoration: none;
+            word-break: break-word;
+            /* 防止长链接溢出 */
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-color);
+        }
+
+        /* 地图和联系表单部分 */
+        .contact-section {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 3rem;
+            margin-top: 4rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .map-container {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .map-container iframe {
+            border: 0;
+        }
+
+        /* 滚动淡入动画 */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <div class="contact-header fade-in-up">
+        <div class="container">
+            <h1 class="display-4">
+                <%= pageTitle %>
+            </h1>
+            <p>我们期待与您和您的孩子相遇，共同开启奇妙的科学探索之旅。随时通过以下方式联系我们，或填写表单给我们留言。</p>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="contact-info-grid mb-5">
+            <div class="contact-item fade-in-up" style="transition-delay: 100ms;">
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div>
+                    <h5>我们的地址</h5>
+                    <p>北京市朝阳区科学大道123号<br>科学教育中心3楼</p>
+                </div>
+            </div>
+            <div class="contact-item fade-in-up" style="transition-delay: 200ms;">
+                <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                <div>
+                    <h5>联系电话</h5>
+                    <p>
+                        <a href="tel:010-12345678">010-12345678</a> (咨询热线)<br>
+                        <a href="weixin://dl/chat?science_lab_2020">science_lab_2020</a> (微信号)
+                    </p>
+                </div>
+            </div>
+            <div class="contact-item fade-in-up" style="transition-delay: 300ms;">
+                <div class="icon"><i class="far fa-clock"></i></div>
+                <div>
+                    <h5>营业时间</h5>
+                    <p>周一至周五: 15:00-19:00<br>周六至周日: 09:00-17:00</p>
+                </div>
+            </div>
+            <div class="contact-item fade-in-up" style="transition-delay: 400ms;">
+                <div class="icon"><i class="far fa-envelope"></i></div>
+                <div>
+                    <h5>电子邮箱</h5>
+                    <p>
+                        <a href="mailto:info@science-center.com">info@science-center.com</a> (课程咨询)<br>
+                        <a href="mailto:partner@science-center.com">partner@science-center.com</a> (商务合作)
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-section fade-in-up" style="transition-delay: 500ms;">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-4">地理位置</h3>
+                    <div class="map-container shadow-sm">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322813!2d106.8195888153434!3d-6.194741395514695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sNational%20Monument!5e0!3m2!1sen!2sid!4v1622445833235!5m2!1sen!2sid"
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="fw-bold mb-4">给我们留言</h3>
+                    <form action="/contact" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">您的姓名</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">您的邮箱</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">主题</label>
+                            <input type="text" class="form-control" id="subject" name="subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">留言内容</label>
+                            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>发送消息
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 滚动触发动画的JavaScript
+        document.addEventListener("DOMContentLoaded", function () {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // 元素进入视口10%时触发
+            }
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible')
+                        observer.unobserve(entry.target) // 动画只触发一次
+                    }
+                })
+            }, observerOptions)
+
+            const elementsToAnimate = document.querySelectorAll('.fade-in-up')
+            elementsToAnimate.forEach(el => observer.observe(el))
+        });
+    </script>
+
+    <%- include('partials/footer') %>

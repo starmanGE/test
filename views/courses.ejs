@@ -1,0 +1,277 @@
+<%- include('partials/header', { pageTitle: pageTitle }) %>
+
+    <style>
+        /* 建议将以下所有CSS代码移动到您的 /public/css/style.css 文件中 */
+
+        /* 引入一个更现代、更圆润的Google字体 */
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --light-bg: #f8f9fa;
+            --text-dark: #212529;
+            --text-muted: #6c757d;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            font-family: 'Nunito', sans-serif;
+            /* 应用新字体 */
+        }
+
+        /* 页面头部区域 */
+        .page-header-light {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .page-header-light h1 {
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .page-header-light p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin: 1rem auto 0;
+        }
+
+        /* 筛选区域 */
+        .filter-bar-light {
+            background-color: var(--card-bg);
+            border-radius: .75rem;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-bar-light .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        /* 课程卡片 */
+        .course-card-light {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: .75rem;
+            transition: all 0.3s ease-in-out;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        .course-card-light:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-color);
+        }
+
+        .course-card-light .card-img-top {
+            border-bottom: 1px solid var(--border-color);
+            border-top-left-radius: .75rem;
+            border-top-right-radius: .75rem;
+        }
+
+        .course-card-light .card-title a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .course-card-light .card-title a:hover {
+            color: var(--primary-color);
+        }
+
+        .course-card-light .card-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .course-card-light .info-item i {
+            color: var(--primary-color);
+        }
+
+        .course-card-light .btn-enroll {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            background-color: var(--bs-success);
+            border-color: var(--bs-success);
+        }
+
+        .course-card-light:hover .btn-enroll {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+
+    <main class="py-5">
+        <div class="container">
+            <div class="page-header-light mb-5">
+                <h1 class="display-4">
+                    <%= pageTitle %>
+                </h1>
+                <p>探索科学的奥秘，从这里开始，启发孩子无限的好奇心与创造力。</p>
+            </div>
+
+            <div class="filter-bar-light shadow-sm mb-5">
+                <div class="row g-3 align-items-center">
+                    <div class="col-md-4"><select class="form-select" id="ageFilter">
+                            <option value="">所有年龄段</option>
+                            <option value="5-7">5-7岁</option>
+                            <option value="8-10">8-10岁</option>
+                            <option value="11-15">11-15岁</option>
+                        </select></div>
+                    <div class="col-md-4"><select class="form-select" id="categoryFilter">
+                            <option value="">所有类别</option>
+                            <option value="物理">物理</option>
+                            <option value="化学">化学</option>
+                            <option value="生物">生物</option>
+                            <option value="综合">综合</option>
+                        </select></div>
+                    <div class="col-md-4"><select class="form-select" id="priceFilter">
+                            <option value="">所有价格</option>
+                            <option value="0-500">500以下</option>
+                            <option value="500-1000">500-1000</option>
+                            <option value="1000+">1000以上</option>
+                        </select></div>
+                </div>
+            </div>
+
+            <div class="row g-4" id="coursesList">
+                <% if(courses && courses.length> 0) { %>
+                    <% courses.forEach(course=> { %>
+                        <div class="col-lg-4 col-md-6 course-item" data-age="<%= course.age_range || '' %>"
+                            data-category="<%= course.category || '' %>" data-price="<%= course.price || 0 %>">
+                            <div class="card h-100 course-card-light">
+                                <div class="position-relative">
+                                    <img src="<%= course.cover_image_url || '/uploads/default.jpg' %>"
+                                        class="card-img-top" alt="<%= course.title %>"
+                                        style="height: 200px; object-fit: cover;">
+                                    <% if (course.price) { %>
+                                        <div class="position-absolute top-0 end-0 m-2"><span
+                                                class="badge bg-success fs-6 rounded-pill shadow-sm">¥<%= course.price
+                                                    %></span></div>
+                                        <% } %>
+                                            <div class="position-absolute top-0 start-0 m-2"><span
+                                                    class="badge bg-primary rounded-pill shadow-sm">
+                                                    <%= course.category || '通用' %>
+                                                </span></div>
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title mb-2" style="min-height: 3.5rem;"><a
+                                            href="/courses/<%= course.id %>">
+                                            <%= course.title || '无标题课程' %>
+                                        </a></h5>
+                                    <p class="card-text flex-grow-1">
+                                        <%= course.description || '暂无更多课程描述。' %>
+                                    </p>
+                                    <div class="course-info border-top pt-3 mt-3">
+                                        <div class="row g-2 text-center">
+                                            <div class="col-4 info-item"><i class="fas fa-users"></i><small
+                                                    class="d-block text-muted">年龄</small><small class="fw-bold">
+                                                    <%= course.age_range || '不限' %>
+                                                </small></div>
+                                            <div class="col-4 info-item"><i class="fas fa-clock"></i><small
+                                                    class="d-block text-muted">时长</small><small class="fw-bold">
+                                                    <%= course.duration || '待定' %>
+                                                </small></div>
+                                            <div class="col-4 info-item"><i class="fas fa-user-friends"></i><small
+                                                    class="d-block text-muted">人数</small><small class="fw-bold">
+                                                    <%= course.class_size || '不限' %>
+                                                </small></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-white border-0 pt-0 pb-3">
+                                    <div class="d-grid gap-2">
+                                        <a href="/enroll/<%= course.id %>" class="btn btn-success btn-enroll"><i
+                                                class="fas fa-user-plus me-2"></i>立即报名</a>
+                                        <a href="/courses/<%= course.id %>" class="btn btn-outline-primary"><i
+                                                class="fas fa-info-circle me-2"></i>了解详情</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                            <% } else { %>
+                                <div class="col-12 text-center py-5">
+                                    <i class="fas fa-search text-muted mb-4" style="font-size: 4rem;"></i>
+                                    <h3 class="text-muted">正在精心准备课程...</h3>
+                                    <p class="text-muted">目前暂无课程上架，敬请期待我们的最新科学实验！</p>
+                                </div>
+                                <% } %>
+                                    <div id="noResultsMessage" class="col-12 text-center py-5" style="display: none;">
+                                        <i class="fas fa-ghost text-muted mb-4" style="font-size: 4rem;"></i>
+                                        <h3 class="text-muted">噢哦，没有找到匹配的课程...</h3>
+                                        <p class="text-muted">请尝试调整您的筛选条件，发现更多可能！</p>
+                                    </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ageFilter = document.getElementById('ageFilter')
+            const categoryFilter = document.getElementById('categoryFilter')
+            const priceFilter = document.getElementById('priceFilter')
+            const coursesList = document.getElementById('coursesList')
+            const noResultsMessage = document.getElementById('noResultsMessage')
+
+            function filterCourses() {
+                const ageValue = ageFilter.value
+                const categoryValue = categoryFilter.value
+                const priceValue = priceFilter.value
+                let visibleCount = 0
+                const courseItems = coursesList.querySelectorAll('.course-item')
+
+                courseItems.forEach(item => {
+                    const itemAge = item.dataset.age
+                    const itemCategory = item.dataset.category
+                    const itemPrice = parseInt(item.dataset.price, 10)
+
+                    let show = true
+
+                    if (ageValue) {
+                        const [minAge, maxAge] = ageValue.split('-').map(Number)
+                        if (itemAge) {
+                            const [itemMinAge, itemMaxAge] = itemAge.split('-').map(Number)
+                            if (!(itemMinAge >= minAge && itemMaxAge <= maxAge)) {
+                                show = false
+                            }
+                        } else {
+                            show = false
+                        }
+                    }
+
+                    if (categoryValue && itemCategory !== categoryValue) {
+                        show = false
+                    }
+
+                    if (priceValue) {
+                        if (priceValue === '0-500' && itemPrice >= 500) show = false
+                        if (priceValue === '500-1000' && (itemPrice < 500 || itemPrice >= 1000)) show = false
+                        if (priceValue === '1000+' && itemPrice < 1000) show = false
+                    }
+
+                    item.style.display = show ? '' : 'none'
+                    if (show) {
+                        visibleCount++
+                    }
+                })
+
+                noResultsMessage.style.display = visibleCount === 0 && coursesList.querySelectorAll('.course-item').length > 0 ? 'block' : 'none'
+            }
+
+            ageFilter.addEventListener('change', filterCourses)
+            categoryFilter.addEventListener('change', filterCourses)
+            priceFilter.addEventListener('change', filterCourses)
+        });
+    </script>
+
+    <%- include('partials/footer') %>
